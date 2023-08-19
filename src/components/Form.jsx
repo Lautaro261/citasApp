@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Modal, Text, StyleSheet, View, TextInput, ScrollView} from 'react-native';
 
 const Form = ({visibleModal}) => {
+  const [paciente, setPaciente] = useState('')
+  const [propietario, setPropietario] = useState('')
+  const [email, setEmail] = useState('')
+  const [ numero, setNumero] = useState('')
+
+
   return (
     <Modal animationType="slide" visible={visibleModal}>
       <View style={style.container}>
@@ -16,6 +22,8 @@ const Form = ({visibleModal}) => {
           style={style.input}
           placeholder="Nombre Paciente"
           placeholderTextColor={'#666'}
+          value={paciente}
+          onChangeText={setPaciente}
         />
 
         <Text style={style.label}>Nombre Propietario</Text>
