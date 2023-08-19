@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import {Modal, Text, StyleSheet, View, TextInput, ScrollView} from 'react-native';
+import {Modal, Text, StyleSheet, View, TextInput, ScrollView, Pressable} from 'react-native';
+import DatePicker from 'react-native-date-picker';
 
-const Form = ({visibleModal}) => {
+const Form = ({visibleModal, setVisibleModal}) => {
   const [paciente, setPaciente] = useState('')
   const [propietario, setPropietario] = useState('')
   const [email, setEmail] = useState('')
   const [ numero, setNumero] = useState('')
+  const [ sintomas, setSintomas] = useState('')
+  const [fecha, setFecha]= useState(new Date())
+
+  const changeFecha = (date)=>{
+    console.log('Nueva fecha', date)
+    setFecha(date)
+  }
 
 
   return (
@@ -17,6 +25,15 @@ const Form = ({visibleModal}) => {
           Nueva
           <Text style={style.titleBold}> Cita</Text>
         </Text>
+
+        <Pressable 
+        onLongPress={()=>{setVisibleModal(!visibleModal)}}
+        style={style.btnCancelar}>
+          <Text style={style.btnCancelarTxt}>Cancelar</Text>
+        </Pressable>
+
+
+        {/* 1) INPUT NOMBRE DE PACIENTE */}
         <Text style={style.label}>Nombre Paciente</Text>
         <TextInput
           style={style.input}
@@ -26,33 +43,69 @@ const Form = ({visibleModal}) => {
           onChangeText={setPaciente}
         />
 
+
+        {/* 2) INPUT NOMBRE DE PROPIETARIO */}
         <Text style={style.label}>Nombre Propietario</Text>
         <TextInput
           style={style.input}
           placeholder="Nombre Propietario"
           placeholderTextColor={'#666'}
+          value={propietario}
+          onChangeText={setPropietario}
         />
 
+
+
+        {/* 3) INPUT EMAIL */}
         <Text style={style.label}>Email del Propietario</Text>
         <TextInput
           style={style.input}
           placeholder="Email"
           placeholderTextColor={'#666'}
           keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
 
+
+        
+        {/* 4) INPUT NUMERO DE TELEFONO */}
         <Text style={style.label}>Numero de Telefono</Text>
         <TextInput
           style={style.input}
           placeholder="Numero de Telefono"
           placeholderTextColor={'#666'}
           keyboardType='number-pad'
+          value={numero}
+          onChangeText={setNumero}
+          maxLength={12}
         />
+
+        <Text style={style.label}>Fecha Alta</Text>
+        <View style={style.fechaStyle}>
+        <DatePicker
+        date={fecha}
+        locale='es'
+        textColor='#000000'
+        fadeToColor='none'
+        onDateChange={(date)=>{changeFecha(date)}}
+        />
+
+        </View>
+
+
+
+        {/* 5) INPUT SINTOMAS */}
         <Text style={style.label}>Sintomas</Text>
         <TextInput
-        style={style.input}
+        style={[style.input, style.sintomasInput]}
         placeholder='Sintomas'
-        placeholderTextColor={'#666'}/>
+        placeholderTextColor={'#666'}
+        value={sintomas}
+        onChangeText={setSintomas}
+        multiline={true}
+        numberOfLines={3}
+        />
         
         </ScrollView>
       </View>
@@ -89,6 +142,30 @@ const style = StyleSheet.create({
     borderRadius: 18,
     marginBottom: 15,
   },
+  sintomasInput:{
+    height:100
+  },
+  fechaStyle:{
+    backgroundColor:"#FFF",
+    marginHorizontal:45,
+    borderRadius: 5,
+    color:'#0c1116'
+  },
+  btnCancelar:{
+    marginTop:20,
+    marginBottom:10,
+    backgroundColor:'#5827A4',
+    marginHorizontal:30,
+    padding:10,
+    borderRadius: 10,
+  },
+  btnCancelarTxt:{
+    color:'#FFF',
+    textAlign:'center',
+    fontWeight:'100',
+    fontSize:12,
+    textTransform:'uppercase'
+  }
 });
 
 export default Form;

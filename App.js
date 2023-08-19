@@ -13,11 +13,11 @@ import Form from './src/components/Form';
 
 
 const App = () => {
-  const [ visibleModal, setVisibleModal ] = useState(false)
+  const [ visibleModal, setVisibleModal ] = useState(false) //cambiar a false
 
   const handlerPress = ()=>{
     console.log('Me presionaste wey')
-    setVisibleModal(true)
+    setVisibleModal(!visibleModal)
 }
 
 
@@ -35,7 +35,10 @@ const App = () => {
       </Pressable>
 
 
-      <Form visibleModal={visibleModal}/>
+      <Form 
+        setVisibleModal={setVisibleModal}
+       visibleModal={visibleModal}
+      />
 
       
 
