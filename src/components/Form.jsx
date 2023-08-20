@@ -37,6 +37,7 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
 
     console.log('agregando paciente che :D')
     const nuevoPaciente ={
+      id: Date.now(),
       paciente,
       propietario,
       email,
@@ -46,6 +47,13 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
     }
     console.log(nuevoPaciente)
     setPacientes([...pacientes, nuevoPaciente])
+    setPaciente('')
+    setPropietario('')
+    setEmail('')
+    setNumero('')
+    setFecha(new Date())
+    setSintomas('')
+    setVisibleModal(!visibleModal)
   };
 
   return (

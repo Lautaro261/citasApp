@@ -1,7 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
-import {Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
+import {Text, StyleSheet, SafeAreaView, Pressable, FlatList} from 'react-native';
 import Form from './src/components/Form';
+import Paciente from './src/components/Paciente';
 
 const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -22,6 +23,24 @@ const App = () => {
       <Pressable onPress={handlerPress} style={style.btnOnPress}>
         <Text style={style.btnText}>nueva cita</Text>
       </Pressable>
+
+      {pacientes.length===0 ? 
+      <Text style={style.nop}>No hay pacientes aun</Text> :
+      
+      <FlatList
+      data={pacientes}
+      keyExtractor={(item)=>{item.id}}
+      renderItem={({item})=>{
+        console.log(item)
+        return(
+          <Paciente
+          /* key={item.id} */
+          item={item}
+          />
+        )
+      }}
+      />
+      }
 
       <Form 
       pacientes={pacientes}
@@ -62,6 +81,20 @@ const style = StyleSheet.create({
     fontWeight: '500',
     textTransform: 'uppercase',
   },
+  yes:{
+    marginTop: 40,
+    textAlign:'center',
+    fontSize:24,
+    fontWeight:'500'
+
+  },
+  nop:{
+    marginTop: 40,
+    textAlign:'center',
+    fontSize:24,
+    fontWeight:'500'
+
+  }
 });
 
 export default App;
