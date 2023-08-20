@@ -6,7 +6,25 @@ import Paciente from './src/components/Paciente';
 
 const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const [pacientes, setPacientes] = useState([])
+  const [pacientes, setPacientes] = useState([{
+    id: 1692501805499,
+    paciente: "Pepe",
+    propietario: "Guillermo",
+    email: "guille@gmail.com",
+    numero: "444",
+    fecha: "Tue Sep 05 2023 00:23:00 GMT-0300",
+    sintomas: "vomito"
+  },
+  {
+    id: 1692501805479,
+    paciente: "Luna",
+    propietario: "Jorge",
+    email: "jorge@gmail.com",
+    numero: "111",
+    fecha: "Tue Sep 05 2023 00:23:00 GMT-0300",
+    sintomas: "no comer"
+  }
+])
 
   const handlerPress = () => {
     console.log('Me presionaste wey');
@@ -28,6 +46,7 @@ const App = () => {
       <Text style={style.nop}>No hay pacientes aun</Text> :
       
       <FlatList
+      style={style.listado}
       data={pacientes}
       keyExtractor={(item)=>{item.id}}
       renderItem={({item})=>{
@@ -94,6 +113,10 @@ const style = StyleSheet.create({
     fontSize:24,
     fontWeight:'500'
 
+  },
+  listado:{
+    marginTop:50,
+    marginHorizontal: 30
   }
 });
 

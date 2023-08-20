@@ -206,7 +206,7 @@ const style = StyleSheet.create({
   },
   btnNuevaCita: {
     marginVertical: 30,
-    backgroundColor: '#F59E0B',
+    backgroundColor: '#f79c25',
     marginHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,
