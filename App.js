@@ -1,84 +1,67 @@
-
 import React from 'react';
-import { useState } from 'react';
-import { 
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  Pressable,
-
-  } from 'react-native';
+import {useState} from 'react';
+import {Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import Form from './src/components/Form';
 
-
-
 const App = () => {
-  const [ visibleModal, setVisibleModal ] = useState(false) //cambiar a false
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [pacientes, setPacientes] = useState([])
 
-  const handlerPress = ()=>{
-    console.log('Me presionaste wey')
-    setVisibleModal(!visibleModal)
-}
-
+  const handlerPress = () => {
+    console.log('Me presionaste wey');
+    setVisibleModal(!visibleModal);
+  };
 
   return (
     <SafeAreaView style={style.container}>
-      <Text style={style.titulo}>Administrador de citas {''}
+      <Text style={style.titulo}>
+        Administrador de citas {''}
         <Text style={style.tituloBold}>Veterinaria</Text>
       </Text>
 
-      <Pressable 
-      onPress={handlerPress}
-      style={style.btnOnPress}
-      >
+      <Pressable onPress={handlerPress} style={style.btnOnPress}>
         <Text style={style.btnText}>nueva cita</Text>
       </Pressable>
 
-
       <Form 
-        setVisibleModal={setVisibleModal}
-       visibleModal={visibleModal}
-      />
-
-      
-
+      pacientes={pacientes}
+      setPacientes={setPacientes}
+      setVisibleModal={setVisibleModal} 
+      visibleModal={visibleModal} />
     </SafeAreaView>
   );
 };
 
 const style = StyleSheet.create({
-  container:{
-    backgroundColor:'#6b6e73',
+  container: {
+    backgroundColor: '#6b6e73',
     flex: 1,
   },
-  titulo:{
+  titulo: {
     textAlign: 'center',
     fontSize: 24,
-    fontWeight:'200',
+    fontWeight: '200',
     color: '#fefffe',
-  
   },
-  tituloBold:{
-    fontWeight:'600',
-    color:'#a535f1',
+  tituloBold: {
+    fontWeight: '600',
+    color: '#a535f1',
   },
-  btnOnPress:{
-    backgroundColor:'#a535f1',
+  btnOnPress: {
+    backgroundColor: '#a535f1',
     padding: 5,
     marginTop: 20,
-    marginLeft: 20,  // o tambien se puede usar marginHorizontal: 20 
+    marginLeft: 20, // o tambien se puede usar marginHorizontal: 20
     marginRight: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
-  btnText:{
-    textAlign:'center',
-    color:'#fefffe',
-    fontSize:15,
-    fontWeight:'500',
-    textTransform: 'uppercase'
-  }
-
-})
-
+  btnText: {
+    textAlign: 'center',
+    color: '#fefffe',
+    fontSize: 15,
+    fontWeight: '500',
+    textTransform: 'uppercase',
+  },
+});
 
 export default App;
