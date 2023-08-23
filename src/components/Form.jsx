@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView,
   Pressable,
-  Alert
+  Alert,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
@@ -24,36 +24,37 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
     setFecha(date);
   };
   const handlerNewCita = () => {
-    console.log('Entre a la varidacion jeje')
-    //validacion 
-    if([paciente, propietario, email, fecha, sintomas].includes('')){
-      console.log('No paso la validacion papi')
+    console.log('Entre a la varidacion jeje');
+    //validacion
+    if ([paciente, propietario, email, fecha, sintomas].includes('')) {
+      console.log('No paso la validacion papi');
       Alert.alert(
-        'Error: esto no es coca, papi!', 
+        'Error: esto no es coca, papi!',
         'Todos los campos son obligatorios',
-        [{text: 'Cancelar', style:'cancel'}, {text:'Entendí wey'}])
-        return
+        [{text: 'Cancelar', style: 'cancel'}, {text: 'Entendí wey'}],
+      );
+      return;
     }
 
-    console.log('agregando paciente che :D')
-    const nuevoPaciente ={
+    console.log('agregando paciente che :D');
+    const nuevoPaciente = {
       id: Date.now(),
       paciente,
       propietario,
       email,
       numero,
       fecha,
-      sintomas
-    }
-    console.log(nuevoPaciente)
-    setPacientes([...pacientes, nuevoPaciente])
-    setPaciente('')
-    setPropietario('')
-    setEmail('')
-    setNumero('')
-    setFecha(new Date())
-    setSintomas('')
-    setVisibleModal(!visibleModal)
+      sintomas,
+    };
+    console.log(nuevoPaciente);
+    setPacientes([...pacientes, nuevoPaciente]);
+    setPaciente('');
+    setPropietario('');
+    setEmail('');
+    setNumero('');
+    setFecha(new Date());
+    setSintomas('');
+    setVisibleModal(!visibleModal);
   };
 
   return (

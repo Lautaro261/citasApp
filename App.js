@@ -1,30 +1,37 @@
 import React from 'react';
 import {useState} from 'react';
-import {Text, StyleSheet, SafeAreaView, Pressable, FlatList} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Pressable,
+  FlatList,
+} from 'react-native';
 import Form from './src/components/Form';
 import Paciente from './src/components/Paciente';
 
 const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const [pacientes, setPacientes] = useState([{
-    id: 1692501805499,
-    paciente: "Pepe",
-    propietario: "Guillermo",
-    email: "guille@gmail.com",
-    numero: "444",
-    fecha: "Tue Sep 05 2023 00:23:00 GMT-0300",
-    sintomas: "vomito"
-  },
-  {
-    id: 1692501805479,
-    paciente: "Luna",
-    propietario: "Jorge",
-    email: "jorge@gmail.com",
-    numero: "111",
-    fecha: "Tue Sep 05 2023 00:23:00 GMT-0300",
-    sintomas: "no comer"
-  }
-])
+  const [pacientes, setPacientes] = useState([
+    {
+      id: 1692501805499,
+      paciente: 'Pepe',
+      propietario: 'Guillermo',
+      email: 'guille@gmail.com',
+      numero: '444',
+      fecha: 'Tue Sep 05 2023 00:23:00 GMT-0300',
+      sintomas: 'vomito',
+    },
+    {
+      id: 1692501805479,
+      paciente: 'Luna',
+      propietario: 'Jorge',
+      email: 'jorge@gmail.com',
+      numero: '111',
+      fecha: 'Tue Sep 05 2023 00:23:00 GMT-0300',
+      sintomas: 'no comer',
+    },
+  ]);
 
   const handlerPress = () => {
     console.log('Me presionaste wey');
@@ -42,30 +49,33 @@ const App = () => {
         <Text style={style.btnText}>nueva cita</Text>
       </Pressable>
 
-      {pacientes.length===0 ? 
-      <Text style={style.nop}>No hay pacientes aun</Text> :
-      
-      <FlatList
-      style={style.listado}
-      data={pacientes}
-      keyExtractor={(item)=>{item.id}}
-      renderItem={({item})=>{
-        console.log(item)
-        return(
-          <Paciente
-          /* key={item.id} */
-          item={item}
-          />
-        )
-      }}
-      />
-      }
+      {pacientes.length === 0 ? (
+        <Text style={style.nop}>No hay pacientes aun</Text>
+      ) : (
+        <FlatList
+          style={style.listado}
+          data={pacientes}
+          keyExtractor={item => {
+            item.id;
+          }}
+          renderItem={({item}) => {
+            console.log(item);
+            return (
+              <Paciente
+                /* key={item.id} */
+                item={item}
+              />
+            );
+          }}
+        />
+      )}
 
-      <Form 
-      pacientes={pacientes}
-      setPacientes={setPacientes}
-      setVisibleModal={setVisibleModal} 
-      visibleModal={visibleModal} />
+      <Form
+        pacientes={pacientes}
+        setPacientes={setPacientes}
+        setVisibleModal={setVisibleModal}
+        visibleModal={visibleModal}
+      />
     </SafeAreaView>
   );
 };
@@ -100,24 +110,22 @@ const style = StyleSheet.create({
     fontWeight: '500',
     textTransform: 'uppercase',
   },
-  yes:{
+  yes: {
     marginTop: 40,
-    textAlign:'center',
-    fontSize:24,
-    fontWeight:'500'
-
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: '500',
   },
-  nop:{
+  nop: {
     marginTop: 40,
-    textAlign:'center',
-    fontSize:24,
-    fontWeight:'500'
-
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: '500',
   },
-  listado:{
-    marginTop:50,
-    marginHorizontal: 30
-  }
+  listado: {
+    marginTop: 50,
+    marginHorizontal: 30,
+  },
 });
 
 export default App;
