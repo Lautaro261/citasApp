@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   Text,
@@ -11,13 +11,39 @@ import {
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
-const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
+const Form = ({
+  visibleModal, 
+  setVisibleModal, 
+  setPacientes, 
+  pacientes, 
+  paciente: pacienteObj, 
+  setPaciente: setPacienteApp
+}) => {
+
+  const [id, setId]= useState('')
   const [paciente, setPaciente] = useState('');
   const [propietario, setPropietario] = useState('');
   const [email, setEmail] = useState('');
   const [numero, setNumero] = useState('');
   const [sintomas, setSintomas] = useState('');
   const [fecha, setFecha] = useState(new Date());
+
+  useEffect(()=>{
+
+    if(Object.keys(pacienteObj).length > 0 ){
+      console.log('Si hay algo')
+      setId(pacienteObj.id)
+      setPaciente(pacienteObj.paciente)
+      setPropietario(pacienteObj.propietario)
+      setEmail(pacienteObj.email)
+      setNumero(pacienteObj.numero)
+      setSintomas(pacienteObj.sintomas)
+      //setFecha(pacienteObj.fecha)
+
+    }else{
+      console.log('No hay nada che')
+    }
+  },[pacienteObj])
 
   const changeFecha = date => {
     console.log('Nueva fecha', date);
@@ -38,7 +64,7 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
 
     console.log('agregando paciente che :D');
     const nuevoPaciente = {
-      id: Date.now(),
+      //id: Date.now(),
       paciente,
       propietario,
       email,
@@ -46,8 +72,20 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
       fecha,
       sintomas,
     };
-    console.log(nuevoPaciente);
-    setPacientes([...pacientes, nuevoPaciente]);
+
+    if(!id){
+      //registro
+      nuevoPaciente.id = Date.now()
+      setPacientes([...pacientes, nuevoPaciente]);
+    }else{
+      //cambios
+      nuevoPaciente.id = id
+      const pacienteActuali = pacientes.map((pState)=> pState.id === nuevoPaciente.id ? nuevoPaciente : pState) // el map me devuelve el mismo arrary
+      setPacientes(pacienteActuali)
+      setPacienteApp({})
+    }
+    //console.log(nuevoPaciente);
+    setId('')
     setPaciente('');
     setPropietario('');
     setEmail('');
@@ -69,6 +107,14 @@ const Form = ({visibleModal, setVisibleModal, setPacientes, pacientes}) => {
 
           <Pressable
             onLongPress={() => {
+              setPacienteApp({})
+              setId('')
+              setPaciente('');
+              setPropietario('');
+              setEmail('');
+              setNumero('');
+              setFecha(new Date());
+              setSintomas('');
               setVisibleModal(!visibleModal);
             }}
             style={style.btnCancelar}>

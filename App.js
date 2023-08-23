@@ -29,14 +29,23 @@ const App = () => {
       email: 'jorge@gmail.com',
       numero: '111',
       fecha: 'Tue Sep 05 2023 00:23:00 GMT-0300',
-      sintomas: 'no comer',
+      sintomas: 'no come',
     },
   ]);
+  const [paciente, setPaciente] = useState({});
 
   const handlerPress = () => {
     console.log('Me presionaste wey');
     setVisibleModal(!visibleModal);
   };
+
+  const pacienteEditar = (id)=>{
+    console.log('soy el id: ',id)
+    const pacienteEdit = pacientes.filter(paciente => paciente.id === id) //filter me devuelve un array
+
+    console.log('LINE 46',pacienteEdit)
+    setPaciente(pacienteEdit[0])
+  }
 
   return (
     <SafeAreaView style={style.container}>
@@ -55,15 +64,16 @@ const App = () => {
         <FlatList
           style={style.listado}
           data={pacientes}
-          keyExtractor={item => {
-            item.id;
-          }}
+          keyExtractor={item => item.id.toString()}
           renderItem={({item}) => {
-            console.log(item);
+           // console.log(item);
             return (
               <Paciente
                 /* key={item.id} */
                 item={item}
+                setVisibleModal={setVisibleModal}
+                visibleModal={visibleModal}
+                pacienteEditar={pacienteEditar}
               />
             );
           }}
@@ -75,6 +85,8 @@ const App = () => {
         setPacientes={setPacientes}
         setVisibleModal={setVisibleModal}
         visibleModal={visibleModal}
+        paciente={paciente}
+        setPaciente={setPaciente}
       />
     </SafeAreaView>
   );
