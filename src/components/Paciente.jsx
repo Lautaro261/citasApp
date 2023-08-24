@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import {Text, View, StyleSheet, Pressable, Alert} from 'react-native';
 
-const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar}) => {
+const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar, pacienteEliminar}) => {
   const {paciente, fecha, id} = item;
   //console.log('desde pcientes', item);
   const formatearfecha = fecha => {
@@ -19,6 +19,10 @@ const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar}) => {
     pacienteEditar(id)
     setVisibleModal(!visibleModal)
   }
+ /*  const eliminar =(id)=>{
+    
+    pacienteEliminar(id)
+  } */
 
   return (
     <View style={style.contenedor}>
@@ -32,7 +36,9 @@ const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar}) => {
         style={[style.btn, style.btnEditar]}>
           <Text style={style.textBtn}>Editar</Text>
         </Pressable>
-        <Pressable style={[style.btn, style.btnEliminar]}>
+        <Pressable 
+        onLongPress={()=>{pacienteEliminar(id)}}
+        style={[style.btn, style.btnEliminar]}>
           <Text style={style.textBtn}>Eliminar</Text>
         </Pressable>
       </View>
