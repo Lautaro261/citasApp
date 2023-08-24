@@ -6,10 +6,12 @@ import {
   SafeAreaView,
   Pressable,
   FlatList,
-  Alert
+  Alert,
+  Modal
 } from 'react-native';
 import Form from './src/components/Form';
 import Paciente from './src/components/Paciente';
+import Detail from './src/components/Detail';
 
 const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -34,6 +36,7 @@ const App = () => {
     },
   ]);
   const [paciente, setPaciente] = useState({});
+  const [pacienteModal, setPacienteModal] = useState(false)
 
   const handlerPress = () => {
     console.log('Me presionaste wey');
@@ -90,6 +93,9 @@ const App = () => {
                 visibleModal={visibleModal}
                 pacienteEditar={pacienteEditar}
                 pacienteEliminar={pacienteEliminar}
+                setPacienteModal={setPacienteModal}
+                pacienteModal={pacienteModal}
+                setPaciente={setPaciente}
               />
             );
           }}
@@ -104,6 +110,15 @@ const App = () => {
         paciente={paciente}
         setPaciente={setPaciente}
       />
+
+      <Modal animationType='slide' visible={pacienteModal}>
+        <Detail 
+        paciente={paciente}
+        setPacienteModal={setPacienteModal}
+        pacienteModal={pacienteModal}
+        setPaciente={setPaciente}
+        />
+      </Modal>
     </SafeAreaView>
   );
 };

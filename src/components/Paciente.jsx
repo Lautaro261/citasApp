@@ -1,10 +1,20 @@
 import React from 'react';
 import {Text, View, StyleSheet, Pressable, Alert} from 'react-native';
+import { formatearfecha } from '../helpers';
 
-const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar, pacienteEliminar}) => {
+const Paciente = ({
+  item, 
+  setVisibleModal, 
+  visibleModal, 
+  pacienteEditar, 
+  pacienteEliminar,
+  setPacienteModal,
+  pacienteModal,
+  setPaciente
+}) => {
   const {paciente, fecha, id} = item;
   //console.log('desde pcientes', item);
-  const formatearfecha = fecha => {
+  /* const formatearfecha = fecha => {
     const nuevaFecha = new Date(fecha);
     const opciones = {
       weekday: 'long',
@@ -14,7 +24,7 @@ const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar, paciente
     };
     return nuevaFecha.toLocaleDateString('es-ES', opciones);
   };
-
+ */
   const editar = (id)=>{
     pacienteEditar(id)
     setVisibleModal(!visibleModal)
@@ -25,6 +35,10 @@ const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar, paciente
   } */
 
   return (
+    <Pressable onPress={()=>{
+      setPacienteModal(!pacienteModal)
+      setPaciente(item)
+      }}>
     <View style={style.contenedor}>
       <Text style={style.label}>Paciente:</Text>
       <Text style={style.texto}>{paciente}</Text>
@@ -43,6 +57,7 @@ const Paciente = ({item, setVisibleModal, visibleModal, pacienteEditar, paciente
         </Pressable>
       </View>
     </View>
+    </Pressable>
   );
 };
 
