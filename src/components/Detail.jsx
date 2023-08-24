@@ -1,13 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, Pressable} from 'react-native';
-import { formatearfecha } from '../helpers';
+import {formatearfecha} from '../helpers';
 
-const Detail = ({
-    paciente, 
-    pacienteModal, 
-    setPacienteModal,
-    setPaciente
-}) => {
+const Detail = ({paciente, pacienteModal, setPacienteModal, setPaciente}) => {
   return (
     <View style={style.container}>
       <Text style={style.title}>
@@ -17,8 +12,8 @@ const Detail = ({
 
       <Pressable
         onPress={() => {
-          setPacienteModal(!pacienteModal)
-          setPaciente({})
+          setPacienteModal(!pacienteModal);
+          setPaciente({});
         }}
         style={style.btnCerrar}>
         <Text style={style.btnCerrarTxt}>Cerrar</Text>
@@ -26,36 +21,34 @@ const Detail = ({
 
       <View style={style.contenido}>
         <View style={style.campo}>
-        <Text style={style.label}>Nombre: </Text>
-        <Text style={style.value}>{paciente.paciente}</Text>
+          <Text style={style.label}>Nombre: </Text>
+          <Text style={style.value}>{paciente.paciente}</Text>
         </View>
 
         <View style={style.campo}>
-        <Text style={style.label}>Propietario: </Text>
-        <Text style={style.value}>{paciente.propietario}</Text>
+          <Text style={style.label}>Propietario: </Text>
+          <Text style={style.value}>{paciente.propietario}</Text>
         </View>
 
         <View style={style.campo}>
-        <Text style={style.label}>Email: </Text>
-        <Text style={style.value}>{paciente.email}</Text>
+          <Text style={style.label}>Email: </Text>
+          <Text style={style.value}>{paciente.email}</Text>
         </View>
 
         <View style={style.campo}>
-        <Text style={style.label}>Telefono: </Text>
-        <Text style={style.value}>{paciente.numero}</Text>
+          <Text style={style.label}>Telefono: </Text>
+          <Text style={style.value}>{paciente.numero}</Text>
         </View>
 
         <View style={style.campo}>
-        <Text style={style.label}>Fecha: </Text>
-        <Text style={style.value}>{formatearfecha(paciente.fecha)}</Text>
+          <Text style={style.label}>Fecha: </Text>
+          <Text style={style.value}>{formatearfecha(paciente.fecha)}</Text>
         </View>
 
         <View style={style.campo}>
-        <Text style={style.label}>Sintomas: </Text>
-        <Text style={style.value}>{paciente.sintomas}</Text>
+          <Text style={style.label}>Sintomas: </Text>
+          <Text style={style.value}>{paciente.sintomas}</Text>
         </View>
-
-
       </View>
     </View>
   );
@@ -106,18 +99,17 @@ const style = StyleSheet.create({
 
     elevation: 5,
   },
-  campo:{
-    marginBottom:18,
-
+  campo: {
+    marginBottom: 18,
   },
-  label:{
-    color:'#6a6f75',
-    fontWeight:'500',
+  label: {
+    color: '#6a6f75',
+    fontWeight: '500',
   },
-  value:{
-    fontWeight:'400',
-    fontSize:16,
-    color:'#374151'
-  }
+  value: {
+    fontWeight: '400',
+    fontSize: 16,
+    color: '#374151',
+  },
 });
 export default Detail;

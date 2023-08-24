@@ -7,7 +7,7 @@ import {
   Pressable,
   FlatList,
   Alert,
-  Modal
+  Modal,
 } from 'react-native';
 import Form from './src/components/Form';
 import Paciente from './src/components/Paciente';
@@ -16,7 +16,7 @@ import Detail from './src/components/Detail';
 const App = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [pacientes, setPacientes] = useState([
-    {
+    /* {
       id: 1692501805499,
       paciente: 'Pepe',
       propietario: 'Guillermo',
@@ -33,37 +33,45 @@ const App = () => {
       numero: '111',
       fecha: 'Tue Sep 05 2023 00:23:00 GMT-0300',
       sintomas: 'no come',
-    },
+    }, */
   ]);
   const [paciente, setPaciente] = useState({});
-  const [pacienteModal, setPacienteModal] = useState(false)
+  const [pacienteModal, setPacienteModal] = useState(false);
 
   const handlerPress = () => {
-    console.log('Me presionaste wey');
+    // console.log('Me presionaste wey');
     setVisibleModal(!visibleModal);
   };
 
-  const pacienteEditar = (id)=>{
+  const pacienteEditar = id => {
     //console.log('soy el id: ',id)
-    const pacienteEdit = pacientes.filter(paciente => paciente.id === id) //filter me devuelve un array
+    const pacienteEdit = pacientes.filter(paciente => paciente.id === id); //filter me devuelve un array
     //console.log('LINE 46',pacienteEdit)
-    setPaciente(pacienteEdit[0])
-  }
+    setPaciente(pacienteEdit[0]);
+  };
 
-  const pacienteEliminar = (id)=>{
+  const pacienteEliminar = id => {
     Alert.alert(
       '¿Deseas eliminar este paciente?',
       'Un paciente eliminado, no se puede recuperar',
       [
-        {text:'Cancelar'}, 
-        {text:'Confirmar', onPress: ()=>{
-          const pacientesActualizados = pacientes.filter(
-            pacienteState => pacienteState.id !== id )
-            setPacientes(pacientesActualizados)
-        }}
-      ]
-    )
-  }
+        {text: 'Cancelar'},
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            const pacientesActualizados = pacientes.filter(
+              pacienteState => pacienteState.id !== id,
+            );
+            setPacientes(pacientesActualizados);
+          },
+        },
+      ],
+    );
+  };
+
+  const cerrarModal = () => {
+    setVisibleModal(!visibleModal);
+  };
 
   return (
     <SafeAreaView style={style.container}>
@@ -84,7 +92,7 @@ const App = () => {
           data={pacientes}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => {
-           // console.log(item);
+            // console.log(item);
             return (
               <Paciente
                 /* key={item.id} */
@@ -101,22 +109,24 @@ const App = () => {
           }}
         />
       )}
+      {visibleModal && (
+        <Form
+          pacientes={pacientes}
+          setPacientes={setPacientes}
+          /* setVisibleModal={setVisibleModal}
+          visibleModal={visibleModal} */
+          cerrarModal={cerrarModal}
+          paciente={paciente}
+          setPaciente={setPaciente}
+        />
+      )}
 
-      <Form
-        pacientes={pacientes}
-        setPacientes={setPacientes}
-        setVisibleModal={setVisibleModal}
-        visibleModal={visibleModal}
-        paciente={paciente}
-        setPaciente={setPaciente}
-      />
-
-      <Modal animationType='slide' visible={pacienteModal}>
-        <Detail 
-        paciente={paciente}
-        setPacienteModal={setPacienteModal}
-        pacienteModal={pacienteModal}
-        setPaciente={setPaciente}
+      <Modal animationType="slide" visible={pacienteModal}>
+        <Detail
+          paciente={paciente}
+          setPacienteModal={setPacienteModal}
+          pacienteModal={pacienteModal}
+          setPaciente={setPaciente}
         />
       </Modal>
     </SafeAreaView>

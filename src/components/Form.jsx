@@ -12,15 +12,14 @@ import {
 import DatePicker from 'react-native-date-picker';
 
 const Form = ({
-  visibleModal, 
-  setVisibleModal, 
-  setPacientes, 
-  pacientes, 
-  paciente: pacienteObj, 
-  setPaciente: setPacienteApp
+  visibleModal,
+  setPacientes,
+  pacientes,
+  paciente: pacienteObj,
+  setPaciente: setPacienteApp,
+  cerrarModal,
 }) => {
-
-  const [id, setId]= useState('')
+  const [id, setId] = useState('');
   const [paciente, setPaciente] = useState('');
   const [propietario, setPropietario] = useState('');
   const [email, setEmail] = useState('');
@@ -28,22 +27,20 @@ const Form = ({
   const [sintomas, setSintomas] = useState('');
   const [fecha, setFecha] = useState(new Date());
 
-  useEffect(()=>{
-
-    if(Object.keys(pacienteObj).length > 0 ){
-      console.log('Si hay algo')
-      setId(pacienteObj.id)
-      setPaciente(pacienteObj.paciente)
-      setPropietario(pacienteObj.propietario)
-      setEmail(pacienteObj.email)
-      setNumero(pacienteObj.numero)
-      setSintomas(pacienteObj.sintomas)
+  useEffect(() => {
+    if (Object.keys(pacienteObj).length > 0) {
+      console.log('Si hay algo');
+      setId(pacienteObj.id);
+      setPaciente(pacienteObj.paciente);
+      setPropietario(pacienteObj.propietario);
+      setEmail(pacienteObj.email);
+      setNumero(pacienteObj.numero);
+      setSintomas(pacienteObj.sintomas);
       //setFecha(pacienteObj.fecha)
-
-    }else{
-      console.log('No hay nada che')
+    } else {
+      console.log('No hay nada che');
     }
-  },[pacienteObj])
+  }, [pacienteObj]);
 
   const changeFecha = date => {
     console.log('Nueva fecha', date);
@@ -73,26 +70,29 @@ const Form = ({
       sintomas,
     };
 
-    if(!id){
+    if (!id) {
       //registro
-      nuevoPaciente.id = Date.now()
+      nuevoPaciente.id = Date.now();
       setPacientes([...pacientes, nuevoPaciente]);
-    }else{
+    } else {
       //cambios
-      nuevoPaciente.id = id
-      const pacienteActuali = pacientes.map((pState)=> pState.id === nuevoPaciente.id ? nuevoPaciente : pState) // el map me devuelve el mismo arrary
-      setPacientes(pacienteActuali)
-      setPacienteApp({})
+      nuevoPaciente.id = id;
+      const pacienteActuali = pacientes.map(pState =>
+        pState.id === nuevoPaciente.id ? nuevoPaciente : pState,
+      ); // el map me devuelve el mismo arrary
+      setPacientes(pacienteActuali);
+      setPacienteApp({});
     }
     //console.log(nuevoPaciente);
-    setId('')
+    setId('');
     setPaciente('');
     setPropietario('');
     setEmail('');
     setNumero('');
     setFecha(new Date());
     setSintomas('');
-    setVisibleModal(!visibleModal);
+    //setVisibleModal(!visibleModal);
+    cerrarModal();
   };
 
   return (
@@ -100,22 +100,23 @@ const Form = ({
       <View style={style.container}>
         <ScrollView>
           <Text style={style.title}>
-           {pacienteObj.id ? 'Editar' : 'Nueva'} 
-            
+            {pacienteObj.id ? 'Editar' : 'Nueva'}
+
             <Text style={style.titleBold}> Cita</Text>
           </Text>
 
           <Pressable
             onLongPress={() => {
-              setPacienteApp({})
-              setId('')
+              setPacienteApp({});
+              setId('');
               setPaciente('');
               setPropietario('');
               setEmail('');
               setNumero('');
               setFecha(new Date());
               setSintomas('');
-              setVisibleModal(!visibleModal);
+              //setVisibleModal(!visibleModal);
+              cerrarModal();
             }}
             style={style.btnCancelar}>
             <Text style={style.btnCancelarTxt}>Cancelar</Text>
@@ -190,7 +191,9 @@ const Form = ({
           />
 
           <Pressable style={style.btnNuevaCita} onPress={handlerNewCita}>
-            <Text style={style.btnNuevaCitaTxt}>{pacienteObj.id ? 'Guardar' : 'Agregar'} Paciente</Text>
+            <Text style={style.btnNuevaCitaTxt}>
+              {pacienteObj.id ? 'Guardar' : 'Agregar'} Paciente
+            </Text>
           </Pressable>
         </ScrollView>
       </View>
@@ -205,12 +208,13 @@ const style = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: '600',
+    fontWeight: '300',
     textAlign: 'center',
     marginTop: 30,
+    color: '#FFF',
   },
   titleBold: {
-    fontWeight: '900',
+    fontWeight: '500',
   },
   label: {
     color: '#FFF',
@@ -247,7 +251,7 @@ const style = StyleSheet.create({
   btnCancelarTxt: {
     color: '#FFF',
     textAlign: 'center',
-    fontWeight: '100',
+    fontWeight: '400',
     fontSize: 12,
     textTransform: 'uppercase',
   },
